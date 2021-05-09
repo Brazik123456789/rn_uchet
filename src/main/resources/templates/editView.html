@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=320, user-scalable=no">
+    <title>Изменить</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div th:replace="header">Header</div>
+    <h1 class="col font-weight-light">Изменить информацию об инвентаре</h1>
+
+    <div class="form-row mb-2 col d-flex">
+        <label class="col-sm-2">Инвентарный номер</label>
+        <input class="customInput ml" readonly th:value="${inventory.inventory_number}" value="29309284-348"/>
+    </div>
+    <div class="form-row col">
+        <label class="col-sm-2">Название</label>
+        <input class="customInput ml" readonly th:value="${inventory.name}" style="font-weight: bold;"/>
+    </div>
+    <div class="form-row col">
+        <label class="col-sm-2">Остаток на складе</label>
+        <input class="customInput ml" readonly th:value="${inventory.ostatok}" style="font-weight: bold;"/>
+    </div>
+
+    <br>
+    <form class="col" th:action="@{'/info' + ${inventory.id}}" method="GET">
+        <button class="btn btn-info">История записей</button>
+    </form>
+
+    <br>
+    <h3 class="col font-weight-light">Выдать</h3>
+    <form  th:action="@{'/edit' + ${inventory.id}}" method="POST">
+        <div class="form-row mb-2 col d-flex">
+            <label>Кому</label>
+            <input class="ml-auto ml-md-2" name="recipient"/>
+        </div>
+        <div class="form-row mb-2 col d-flex">
+            <label>Сколько</label>
+            <input class="ml-auto ml-md-2" type="number" step="any" th:max="${inventory.ostatok}" name="count"/>
+        </div>
+        <div class="form-row mb-2 col d-flex">
+            <label>Комментарий</label>
+            <input class="ml-auto ml-md-2" name="comment"/>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-danger">Выдать</button>
+        </div>
+    </form>
+
+    <br>
+    <h2 th:unless="${rents.size > 0}" class="col font-weight-light">Весь инвентарь на складе</h2>
+    <h2 th:if="${rents.size > 0}" class="col font-weight-light">У кого инвентарь на данный момент</h2>
+    <table th:if="${rents.size > 0}" class="table table-striped">
+        <thead>
+            <tr>
+                <td align="center">У кого</td>
+                <td align="center">Количество</td>
+                <td align="center">Операции</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="rent : ${rents}">
+                <td align="center" th:text="${rent.recipient}"></td>
+                <td align="center" th:text="${rent.count}"></td>
+                <td align="center" class="row d-flex justify-content-around">
+                    <form class="mb-2" th:action="@{'/rentEdit' + ${rent.id}}" method="POST">
+                        <input hidden name="action" value="takeAll"/>
+                        <button class="btn btn-outline-success">Принять всё</button>
+                    </form>
+                    <form class="mb-2" th:action="@{'/rentEdit' + ${rent.id}}" method="POST">
+                        <input hidden name="action" value="takeShare"/>
+                        <input hidden name="takeShareView" value="false"/>
+                        <button class="btn btn-outline-warning">Принять часть</button>
+                    </form>
+                    <form class="mb-2" th:action="@{'/rentEdit' + ${rent.id}}" method="POST">
+                        <input hidden name="action" value="giveShare"/>
+                        <input hidden name="giveShareView" value="false"/>
+                        <button class="btn btn-outline-danger">Выдать ещё</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form class="col" th:action="@{'/editostatokadd' + ${inventory.id}}" method="GET">
+        <button type="submit" class="btn btn-success">Увеличить остаток вручную</button>
+    </form>
+    <form class="col" th:action="@{'/editostatokdelete' + ${inventory.id}}" method="GET">
+        <button type="submit" class="btn btn-danger">Уменьшить остаток вручную</button>
+    </form>
+</body>
+</html>

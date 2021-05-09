@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=320, user-scalable=no">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div th:replace="header :: header (activePosition = '3')">Header</div>
+    <h1 class="col font-weight-light" >Профиль</h1>
+
+    <div class="form-row mb-2 col d-flex">
+        <label>Имя:</label>
+        <input class="customInput ml-auto ml-md-2" readonly th:value="${userName}"/>
+    </div>
+    <div class="form-row mb-2 col d-flex">
+        <label>E-mail:</label>
+        <input class="customInput ml-auto ml-md-2" readonly th:value="${userEmail}"/>
+    </div>
+    <div class="form-row mb-2 col d-flex">
+        <label>Количество позиций инвентаря на складе:</label>
+        <input class="customInput ml-auto ml-md-2" readonly th:value="${inventoryCount}"/>
+    </div>
+
+    <br>
+    <h1 class="col font-weight-light">Посмотреть информацию за определенный месяц</h1>
+    <form th:action="@{'/allinfo'}" method="POST">
+        <div class="form-row mb-2 col d-flex">
+            <label>Выберите год и месяц</label>
+            <select class="form-control col-sm-2" type="text" name="year">
+                <option th:each="year : ${years}" th:text="${year}" th:value="${year}"></option>
+            </select>
+            <select class="form-control col-sm-2" type="text" name="month">
+                <option th:each="month : ${months}" th:text="${month}" th:value="${month}"></option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-outline-success">Посмотреть</button>
+        </div>
+        <br>
+    </form>
+</body>
+</html>
