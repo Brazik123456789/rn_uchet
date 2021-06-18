@@ -1,6 +1,8 @@
 .customInput{
     border: none;
 }
-.flexTD {
-  display: flex;
+
+input[type="checkbox"]{
+  width: 30px; /*Desired width*/
+  height: 30px; /*Desired height*/
 }

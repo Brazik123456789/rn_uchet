@@ -22,6 +22,12 @@ public class Action {
     @ManyToOne
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
+    @Column
+    private String inventory_name;
+    @Column (name = "inventoryNumber")
+    private String inventory_number;
+    @Column (name = "inventoryMeasure")
+    private String inventory_measure;
     @Column(name = "action")
     private String operation;
     @Column
@@ -39,6 +45,9 @@ public class Action {
 
     public Action(Inventory inventory, String operation, double count, String givingUser, String recipient, double givingUserOstatok, Date date, String comment) {
         this.inventory = inventory;
+        this.inventory_name = inventory.getName();
+        this.inventory_number = inventory.getInventory_number();
+        this.inventory_measure = inventory.getMeasure();
         this.operation = operation;
         this.count = count;
         this.givingUser = givingUser;

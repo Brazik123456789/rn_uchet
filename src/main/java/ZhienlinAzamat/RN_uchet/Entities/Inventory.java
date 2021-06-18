@@ -23,7 +23,7 @@ public class Inventory {
     @Column(name = "added_user")
     private String addedUser;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "inventory")
     private List<Action> actions;
 
     @OneToMany(mappedBy = "inventory", cascade = CascadeType.REMOVE)

@@ -11,11 +11,11 @@
 </head>
 <body>
     <div th:replace="header">Header</div>
-    <h1 class="col font-weight-light">Изменить информацию об инвентаре</h1>
+    <h2 class="col font-weight-light">Изменить информацию об инвентаре</h2>
 
     <div class="form-row mb-2 col d-flex">
         <label class="col-sm-2">Инвентарный номер</label>
-        <input class="customInput ml" readonly th:value="${inventory.inventory_number}" value="29309284-348"/>
+        <input class="customInput ml" readonly th:value="${inventory.inventory_number}" style="font-weight: bold;"/>
     </div>
     <div class="form-row col">
         <label class="col-sm-2">Название</label>
@@ -43,6 +43,10 @@
             <input class="ml-auto ml-md-2" type="number" step="any" th:max="${inventory.ostatok}" name="count"/>
         </div>
         <div class="form-row mb-2 col d-flex">
+            <label>Галочка если вернёт</label>
+            <input class="ml-5" size="40:px" type="checkbox" name="takeCheck"/>
+        </div>
+        <div class="form-row mb-2 col d-flex">
             <label>Комментарий</label>
             <input class="ml-auto ml-md-2" name="comment"/>
         </div>
@@ -52,8 +56,8 @@
     </form>
 
     <br>
-    <h2 th:unless="${rents.size > 0}" class="col font-weight-light">Весь инвентарь на складе</h2>
-    <h2 th:if="${rents.size > 0}" class="col font-weight-light">У кого инвентарь на данный момент</h2>
+    <h4 th:unless="${rents.size > 0}" class="col font-weight-light">Нет людей, кто должен вернуть инвентарь</h4>
+    <h4 th:if="${rents.size > 0}" class="col font-weight-light">У кого инвентарь на данный момент</h4>
     <table th:if="${rents.size > 0}" class="table table-striped">
         <thead>
             <tr>
@@ -87,10 +91,14 @@
     </table>
 
     <form class="col" th:action="@{'/editostatokadd' + ${inventory.id}}" method="GET">
-        <button type="submit" class="btn btn-success">Увеличить остаток вручную</button>
+        <button type="submit" class="btn btn-outline-success">Увеличить остаток вручную</button>
     </form>
     <form class="col" th:action="@{'/editostatokdelete' + ${inventory.id}}" method="GET">
-        <button type="submit" class="btn btn-danger">Уменьшить остаток вручную</button>
+        <button type="submit" class="btn btn-outline-danger">Уменьшить остаток вручную</button>
+    </form>
+    <br>
+    <form class="col" th:action="@{'/deleteInventory' + ${inventory.id}}" method="GET">
+        <button type="submit" class="btn btn-danger">Удалить инвентарь</button>
     </form>
 </body>
 </html>

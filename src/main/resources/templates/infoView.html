@@ -9,7 +9,7 @@
 </head>
 <body>
     <div th:replace="header">Header</div>
-    <h1 class="col font-weight-light" th:text="'История записей для ' + ${inventory.name}"></h1>
+    <h1 class="col font-weight-light" th:text="'История записей для ' + ${inventory.name} + ' (' + ${inventory.inventory_number} + ')'"></h1>
     <table class="table table-striped col">
         <thead>
             <tr>
@@ -25,11 +25,7 @@
         <tbody>
             <tr th:each="ac : ${actions}">
                 <td align="center" th:text="${ac.recipient}"></td>
-                <td th:if="${ac.operation == 'Выдано'}" align="center">Взял</td>
-                <td th:if="${ac.operation == 'Принято'}" align="center">Вернул</td>
-                <td th:if="${ac.operation == 'Увеличил остаток'}" align="center">Вручную увеличил остаток</td>
-                <td th:if="${ac.operation == 'Уменьшил остаток'}" align="center">Вручную уменьшил остаток</td>
-                <td th:if="${ac.operation == 'Добавил данный инвентарь'}" align="center">Добавил данный инвентарь</td>
+                <td align="center" th:text=="${ac.operation}"></td>
                 <td align="center" th:text="${ac.count}"></td>
                 <td align="center" th:text="${ac.givingUserOstatok}"></td>
                 <td align="center" th:text="${ac.inventory.measure}"></td>

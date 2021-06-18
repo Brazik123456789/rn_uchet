@@ -27,15 +27,11 @@
         <tbody>
             <tr th:each="ac : ${actions}">
                 <td align="center" th:text="${ac.recipient}"></td>
-                <td th:if="${ac.operation == 'Выдано'}" align="center">Взял</td>
-                <td th:if="${ac.operation == 'Принято'}" align="center">Вернул</td>
-                <td th:if="${ac.operation == 'Увеличил остаток'}" align="center">Вручную увеличил остаток</td>
-                <td th:if="${ac.operation == 'Уменьшил остаток'}" align="center">Вручную уменьшил остаток</td>
-                <td th:if="${ac.operation == 'Добавил данный инвентарь'}" align="center">Добавил данный инвентарь</td>
-                <td align="center" th:text="${ac.inventory.name}"></td>
+                <td align="center" th:text=="${ac.operation}"></td>
+                <td align="center" th:text="${ac.inventory_name} + ' (' + ${ac.inventory_number} + ')'"></td>
                 <td align="center" th:text="${ac.count}"></td>
                 <td align="center" th:text="${ac.givingUserOstatok}"></td>
-                <td align="center" th:text="${ac.inventory.measure}"></td>
+                <td align="center" th:text="${ac.inventory_measure}"></td>
                 <td align="center" th:text="${ac.date}"></td>
                 <td align="center" th:text="${ac.comment}"></td>
             </tr>

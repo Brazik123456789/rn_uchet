@@ -27,23 +27,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder().encode("user"))
                 .roles("USER")
                 .and()
-                .withUser("DEMO")
-                .password(passwordEncoder().encode("DEMO"))
-                .roles("DEMO");
+                .withUser("userReader")
+                .password(passwordEncoder().encode("userReader"))
+                .roles("READER")
+                .and()
+                .withUser("УНП2")
+                .password(passwordEncoder().encode("строганина"))
+                .roles("USER")
+                .and()
+                .withUser("УНП2_ЧТЕНИЕ")
+                .password(passwordEncoder().encode("УНП2_ЧТЕНИЕ"))
+                .roles("READER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/templates/**","/static/**","/**").authenticated()
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/","/profile","allinfo","/info*")
+                    .hasAnyRole("READER","USER")
                 .and()
-                .formLogin();
+                .authorizeRequests()
+                    .antMatchers("/**")
+                    .hasRole("USER")
+                .and()
+                .authorizeRequests()
+                    .antMatchers("/templates/**","/static/**").authenticated()
+                    .and()
+                .formLogin()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/css/**");
+                .antMatchers("/css/**")
+                .antMatchers("/image/**");
     }
 
     @Bean

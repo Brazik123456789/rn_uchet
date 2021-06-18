@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+.*/src/main/java/ZhienlinAzamat/RN_uchet/configs/SecurityConfig.java

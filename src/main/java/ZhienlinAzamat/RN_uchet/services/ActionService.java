@@ -36,8 +36,8 @@ public class ActionService {
         return actionRepository.findMonths();
     }
 
-    public List<Action> findByYearAndMonth(Long year, Long month){
-        return actionRepository.findByYearAndMonth(year, month);
+    public List<Action> findByYearAndMonth(Long year, Long month, String user){
+        return actionRepository.findByYearAndMonth(year, month, user);
     }
 
 }

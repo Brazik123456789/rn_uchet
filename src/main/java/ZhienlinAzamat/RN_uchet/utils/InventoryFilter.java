@@ -26,5 +26,9 @@ public class InventoryFilter {
             spec = spec.and(InventorySpecifications.inventory_numberLike(inventory_number));
             filterDefinition.append("&inventory_number=").append(inventory_number);
         }
+
+        if (map.containsKey("addedUser") && !map.get("addedUser").isEmpty()) {
+            spec = spec.and(InventorySpecifications.inventory_addedUser(map.get("addedUser")));
+        }
     }
 }

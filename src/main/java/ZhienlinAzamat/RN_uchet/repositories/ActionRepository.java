@@ -21,7 +21,7 @@ public interface ActionRepository extends JpaRepository<Action, Long> {
     @Query(value = "SELECT distinct month(date) FROM action_table", nativeQuery = true)
     List<Integer> findMonths();
 
-    @Query(value = "SELECT * FROM action_table where year(date) = ?1 and month(date) = ?2", nativeQuery = true)
-    List<Action> findByYearAndMonth(Long year, Long month);
+    @Query(value = "SELECT * FROM action_table where year(date) = ?1 and month(date) = ?2 and giving_user = ?3", nativeQuery = true)
+    List<Action> findByYearAndMonth(Long year, Long month, String user);
 
 }

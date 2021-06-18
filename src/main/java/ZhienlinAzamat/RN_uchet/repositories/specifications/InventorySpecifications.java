@@ -11,4 +11,8 @@ public class InventorySpecifications {
     public static Specification<Inventory> inventory_numberLike(String inventory_number){
         return (Specification<Inventory>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("inventory_number"), String.format("%%%s%%", inventory_number));
     }
+
+    public static Specification<Inventory> inventory_addedUser(String user){
+        return (Specification<Inventory>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("addedUser"), String.format("%%%s%%", user));
+    }
 }

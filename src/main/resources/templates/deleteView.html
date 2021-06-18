@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<body>
+    <div th:replace="header">Header</div>
+    <h1 class="col font-italic" th:text="'Вы действительно хотите удалить ' + ${inventory.name} + ' (' + ${inventory.inventory_number} + ')'"></h1>
+
+    <form th:action="@{'/deleteInventory' + ${inventory.id}}" method="POST">
+        <div class="col mt-3">
+            <div class="form-row mb-2 d-flex">
+                <label>Комментарий</label>
+                <input class="ml-auto ml-md-2" name="comment"/>
+            </div>
+            <button type="submit" class="btn btn-danger" name="action" value="-">удалить</button>
+        </div>
+    </form>
+</body>
+</html>
