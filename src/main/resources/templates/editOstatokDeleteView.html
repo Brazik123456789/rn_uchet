@@ -11,7 +11,7 @@
 </head>
 <body>
     <div th:replace="header">Header</div>
-    <h1 class="col font-weight-light" th:text="'Уменьшить вручную остаток на складе для ' + ${inventory.name}"></h1>
+    <h2 class="col font-weight-light" th:text="'Уменьшить вручную остаток на складе для ' + ${inventory.name}"></h2>
 
     <div class="form-row col">
         <label class="col-sm-2">Инвентарный номер</label>
@@ -23,7 +23,6 @@
     </div>
 
     <br>
-    <h3 class="col font-weight-light"></h3>
     <form th:action="@{'/editostatok' + ${inventory.id}}" method="POST">
         <div class="form-row col">
             <label class="col-sm-2" th:text="'Уменьшить остаток на сколько ' + ${inventory.measure}"></label>

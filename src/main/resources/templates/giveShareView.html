@@ -11,7 +11,7 @@
 </head>
 <body>
     <div th:replace="header">Header</div>
-    <h1 class="col font-weight-light" th:text="'Выдать ещё инвентарь для ' + ${rent.recipient}"></h1>
+    <h2 class="col font-weight-light" th:text="'Выдать ещё инвентарь для ' + ${rent.recipient}"></h2>
 
     <div class="form-row col">
         <label class="col-sm-2">Инвентарный номер</label>
@@ -27,10 +27,10 @@
     </div>
 
     <br>
-    <h3 class="col font-weight-light"></h3>
+    <h3 class="col font-weight-light">Выдать</h3>
     <form th:action="@{'/rentEdit' + ${rent.id}}" method="POST">
         <div class="form-row col">
-            <label class="col-sm-2">От кого</label>
+            <label class="col-sm-2">Кому</label>
             <input class="customInput" readonly name="recipient" th:value="${rent.recipient}" style="font-weight: bold;"/>
         </div>
         <div class="form-row col">
